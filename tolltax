@@ -1,0 +1,123 @@
+#include<stdio.h>
+#include<conio.h>
+#include<stdlib.h>
+#include<string.h>
+#define MAX 10
+
+int ch, front = 0, rear = -1, count=0,top=-1,amt[120],n,pot=-1,k,tot=0,j;
+char q[MAX][MAX], car[10],s[120][120];
+
+
+void carin()
+{
+if(count == MAX)
+printf("\nQueue is Full,let the cars pass on");
+
+else
+{
+
+rear = (rear + 1) % MAX;
+strcpy(q[rear],car);
+
+count++;
+
+}
+}
+
+void carout()
+{
+if(count == 0)
+printf("\nQueue is Empty");
+else
+{
+if(front > rear && rear==MAX-1)
+
+{
+
+front=0;
+rear=-1;
+count=0;
+}
+else
+{
+strcpy(car,q[front]);
+
+printf("\ncar just passed is: %s",car);
+front = (front + 1) % MAX;
+count--;
+strcpy(s[++top],car);
+printf("\namount paid by the car which just passed is ");
+scanf("%d",&n);
+tot=tot+n;
+amt[++pot]=n;
+}
+}
+}
+
+
+void display()
+{
+
+int i, f=front, r=rear;
+if(count == 0)
+
+printf("\nQueue is Empty");
+else
+{
+
+printf("\nCars in the Queue are:");
+printf("\n*****************************************************\n");
+for(i=f; i!=r; i=(i+1)% MAX)
+
+{
+printf("%s",q[i]);
+printf("\n");
+
+
+}
+printf("%s\n",q[i]);
+
+}
+for(j=top,k=pot; j>=0; j--,k--)
+{
+
+printf("\ncar %s has paid %d",s[j],amt[k]);
+
+}
+printf("\n*****************************************************");
+printf("\ntotal amount collected by the toll is %d",tot);
+}
+
+void main()
+
+{
+do{
+printf("\n1. Carin\n2. Carout\n3. Display\n4. Exit");
+printf("\nEnter the choice: ");
+scanf("%d", &ch);
+switch(ch)
+{
+
+case 1:
+printf("\n Enter car name\n");
+scanf("%s",&car);
+printf("\ncar entered is: %s \n",car);
+carin();
+
+break;
+case 2:
+carout();
+break;
+
+case 3:
+display();
+break;
+
+case 4:
+exit(0);
+break;
+}
+
+}
+while(ch!=4);
+getch();}
